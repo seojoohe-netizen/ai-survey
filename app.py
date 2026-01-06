@@ -10,25 +10,23 @@ FILE_NAME = "survey_data.csv"
 # 페이지 설정
 st.set_page_config(page_title="AI Literacy 역량 진단", layout="centered")
 
-# --- 1. 진단 기간 및 목적 설정 ---
+# --- 1. 설정 ---
+# 내부적인 로직(기간 체크)을 위해 날짜 정보는 유지하되 화면 출력만 제거했습니다.
 START_DATE = datetime(2026, 1, 1)
 END_DATE = datetime(2026, 1, 31)
 current_time = datetime.now()
 
 st.title("🤖 AI Literacy 역량 진단")
 
-# [진단 목적]과 [진단 기간]의 글자 크기를 동일하게(###) 맞춤
+# [진단 기간] 관련 텍스트 삭제, [진단 목적]만 유지
 st.markdown(f"""
 ### **[진단 목적]**
 본 진단은 임직원의 **AI 활용 역량 수준을 객관적으로 파악**하고, 향후 **개인별/직무별 맞춤형 AI 교육 커리큘럼을 수립**하기 위한 기초 자료로 활용됩니다. 
 정확한 진단은 회사와 개인의 AI 경쟁력을 높이는 첫걸음입니다. 솔직한 응답 부탁드립니다.
-
-### **[진단 기간]**
-**{START_DATE.strftime('%Y-%m-%d')} ~ {END_DATE.strftime('%Y-%m-%d')}**
 ---
 """)
 
-# 기간 체크
+# 기간 체크 (화면에는 안 보이지만 기간 외 접속은 차단됨)
 if current_time < START_DATE:
     st.warning("아직 진단 기간이 아닙니다.")
     st.stop()
@@ -64,7 +62,7 @@ rating_options = ["1.전혀 그렇지 않다", "2.그렇지 않다", "3.보통�
 if position != "선택하세요" and dept != "선택하세요" and not already_submitted:
     st.write("---")
     
-    # 질문 서식 디자인 함수 (margin-bottom을 10px로 조정)
+    # 질문 서식 디자인 함수
     def question_style(text):
         st.markdown(f"""
             <div style="background-color: #eef2ff; padding: 10px 15px; border-radius: 5px; border-left: 5px solid #818cf8; margin-bottom: 10px; margin-top: 15px;">
