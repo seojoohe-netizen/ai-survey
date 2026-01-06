@@ -54,10 +54,10 @@ rating_options = ["1.전혀 그렇지 않다", "2.그렇지 않다", "3.보통�
 if position != "선택하세요" and dept != "선택하세요" and not already_submitted:
     st.write("---")
     
-    # 질문 서식 디자인 함수 (행간 조정을 위해 margin-bottom 추가)
+    # 질문 서식 디자인 함수 (margin-bottom을 18px로 조정)
     def question_style(text):
         st.markdown(f"""
-            <div style="background-color: #eef2ff; padding: 10px 15px; border-radius: 5px; border-left: 5px solid #818cf8; margin-bottom: 25px; margin-top: 15px;">
+            <div style="background-color: #eef2ff; padding: 10px 15px; border-radius: 5px; border-left: 5px solid #818cf8; margin-bottom: 18px; margin-top: 15px;">
                 <span style="font-size: 1.02em; font-weight: 600; color: #374151;">{text}</span>
             </div>
         """, unsafe_allow_html=True)
