@@ -54,11 +54,11 @@ rating_options = ["1.전혀 그렇지 않다", "2.그렇지 않다", "3.보통�
 if position != "선택하세요" and dept != "선택하세요" and not already_submitted:
     st.write("---")
     
-    # 질문 서식 디자인 함수 (파스텔톤 형광펜 효과)
+    # 질문 서식 디자인 함수 (행간 조정을 위해 margin-bottom 추가)
     def question_style(text):
         st.markdown(f"""
-            <div style="background-color: #eef2ff; padding: 8px 12px; border-radius: 5px; border-left: 4px solid #818cf8; margin-bottom: -10px;">
-                <span style="font-size: 1.05em; font-weight: 600; color: #374151;">{text}</span>
+            <div style="background-color: #eef2ff; padding: 10px 15px; border-radius: 5px; border-left: 5px solid #818cf8; margin-bottom: 25px; margin-top: 15px;">
+                <span style="font-size: 1.02em; font-weight: 600; color: #374151;">{text}</span>
             </div>
         """, unsafe_allow_html=True)
 
@@ -134,9 +134,9 @@ if position != "선택하세요" and dept != "선택하세요" and not already_s
         st.subheader("🟥 [임원] 전략적 활용 및 의사결정")
         question_style("10. AI 활용이 조직의 경쟁력 강화에 기여할 수 있다고 판단한다.")
         ans['임원_H1'] = st.radio("E10", rating_options, horizontal=True, label_visibility="collapsed", index=None)
-        question_text("11. AI 도입 시 비용 대비 효과를 고려한 판단이 가능하다.")
+        question_style("11. AI 도입 시 비용 대비 효과를 고려한 판단이 가능하다.")
         ans['임원_H2'] = st.radio("E11", rating_options, horizontal=True, label_visibility="collapsed", index=None)
-        question_text("12. AI 활용을 위한 조직 차원의 준비 과제를 인식하고 있다.")
+        question_style("12. AI 활용을 위한 조직 차원의 준비 과제를 인식하고 있다.")
         ans['임원_H3'] = st.radio("E12", rating_options, horizontal=True, label_visibility="collapsed", index=None)
 
     st.write("---")
@@ -148,7 +148,6 @@ if position != "선택하세요" and dept != "선택하세요" and not already_s
     question_style("2. AI 교육을 통해 가장 기대하는 점은 무엇입니까?")
     ans['주관식_2'] = st.text_area("주관식2", label_visibility="collapsed")
 
-    # 🛑 필수 체크 로직
     is_ready = all(v is not None for k, v in ans.items() if k not in ['주관식_1', '주관식_2'])
 
     if st.button("✅ 진단 완료 및 제출하기", type="primary", use_container_width=True, disabled=not is_ready):
