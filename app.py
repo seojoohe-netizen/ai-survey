@@ -16,14 +16,24 @@ END_DATE = datetime(2026, 1, 31)
 current_time = datetime.now()
 
 st.title("🤖 AI Literacy 역량 진단")
+
+# [진단 목적]과 [진단 기간]의 글자 크기를 동일하게(###) 맞춤
 st.markdown(f"""
 ### **[진단 목적]**
 본 진단은 임직원의 **AI 활용 역량 수준을 객관적으로 파악**하고, 향후 **개인별/직무별 맞춤형 AI 교육 커리큘럼을 수립**하기 위한 기초 자료로 활용됩니다. 
 정확한 진단은 회사와 개인의 AI 경쟁력을 높이는 첫걸음입니다. 솔직한 응답 부탁드립니다.
 
-**진단 기간:** {START_DATE.strftime('%Y-%m-%d')} ~ {END_DATE.strftime('%Y-%m-%d')}
+### **[진단 기간]**
+**{START_DATE.strftime('%Y-%m-%d')} ~ {END_DATE.strftime('%Y-%m-%d')}**
 ---
 """)
+
+# 기간 체크
+if current_time < START_DATE:
+    st.warning("아직 진단 기간이 아닙니다.")
+    st.stop()
+elif current_time > END_DATE:
+    st.error("진단 기간이 종료되었습니다.")
 
 # 데이터 로드
 if os.path.exists(FILE_NAME):
@@ -54,10 +64,10 @@ rating_options = ["1.전혀 그렇지 않다", "2.그렇지 않다", "3.보통�
 if position != "선택하세요" and dept != "선택하세요" and not already_submitted:
     st.write("---")
     
-    # 질문 서식 디자인 함수 (margin-bottom을 18px로 조정)
+    # 질문 서식 디자인 함수 (margin-bottom을 10px로 조정)
     def question_style(text):
         st.markdown(f"""
-            <div style="background-color: #eef2ff; padding: 10px 15px; border-radius: 5px; border-left: 5px solid #818cf8; margin-bottom: 18px; margin-top: 15px;">
+            <div style="background-color: #eef2ff; padding: 10px 15px; border-radius: 5px; border-left: 5px solid #818cf8; margin-bottom: 10px; margin-top: 15px;">
                 <span style="font-size: 1.02em; font-weight: 600; color: #374151;">{text}</span>
             </div>
         """, unsafe_allow_html=True)
