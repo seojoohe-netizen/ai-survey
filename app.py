@@ -11,22 +11,23 @@ FILE_NAME = "survey_data.csv"
 st.set_page_config(page_title="AI Literacy 역량 진단", layout="centered")
 
 # --- 1. 설정 ---
-# 내부적인 로직(기간 체크)을 위해 날짜 정보는 유지하되 화면 출력만 제거했습니다.
 START_DATE = datetime(2026, 1, 1)
 END_DATE = datetime(2026, 1, 31)
 current_time = datetime.now()
 
 st.title("🤖 AI Literacy 역량 진단")
 
-# [진단 기간] 관련 텍스트 삭제, [진단 목적]만 유지
+# [진단 목적] 본문 텍스트 사이즈를 문항 사이즈(1.02em)와 동일하게 조정
 st.markdown(f"""
 ### **[진단 목적]**
-본 진단은 임직원의 **AI 활용 역량 수준을 객관적으로 파악**하고, 향후 **개인별/직무별 맞춤형 AI 교육 커리큘럼을 수립**하기 위한 기초 자료로 활용됩니다. 
+<p style="font-size: 1.02em; font-weight: 600; color: #374151; line-height: 1.6;">
+본 진단은 임직원의 AI 활용 역량 수준을 객관적으로 파악하고, 향후 개인별/직무별 맞춤형 AI 교육 커리큘럼을 수립하기 위한 기초 자료로 활용됩니다. <br>
 정확한 진단은 회사와 개인의 AI 경쟁력을 높이는 첫걸음입니다. 솔직한 응답 부탁드립니다.
----
-""")
+</p>
+<hr>
+""", unsafe_allow_html=True)
 
-# 기간 체크 (화면에는 안 보이지만 기간 외 접속은 차단됨)
+# 기간 체크
 if current_time < START_DATE:
     st.warning("아직 진단 기간이 아닙니다.")
     st.stop()
@@ -62,16 +63,17 @@ rating_options = ["1.전혀 그렇지 않다", "2.그렇지 않다", "3.보통�
 if position != "선택하세요" and dept != "선택하세요" and not already_submitted:
     st.write("---")
     
-    # 질문 서식 디자인 함수
+    # 질문 서식 디자인 함수 (margin-bottom을 5px로 조정)
     def question_style(text):
         st.markdown(f"""
-            <div style="background-color: #eef2ff; padding: 10px 15px; border-radius: 5px; border-left: 5px solid #818cf8; margin-bottom: 10px; margin-top: 15px;">
+            <div style="background-color: #eef2ff; padding: 10px 15px; border-radius: 5px; border-left: 5px solid #818cf8; margin-bottom: 5px; margin-top: 15px;">
                 <span style="font-size: 1.02em; font-weight: 600; color: #374151;">{text}</span>
             </div>
         """, unsafe_allow_html=True)
 
+    # [진단 응답 안내] 본문 텍스트 사이즈를 문항 사이즈(1.02em)와 동일하게 조정
     st.markdown("##### 📢 진단 응답 안내")
-    st.caption("모든 문항을 읽고 본인의 생각과 가장 가까운 점수를 선택해 주세요. (5점 만점)")
+    st.markdown('<p style="font-size: 1.02em; font-weight: 600; color: #374151;">모든 문항을 읽고 본인의 생각과 가장 가까운 점수를 선택해 주세요. (5점 만점)</p>', unsafe_allow_html=True)
     st.write("")
 
     ans = {}
